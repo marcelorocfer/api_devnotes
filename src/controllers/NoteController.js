@@ -12,22 +12,32 @@ module.exports = {
         for(let i in notes) {
             json.result.push({
                 id: notes[i].id,
-                title: notes[i].title
+                title: notes[i].title,
+                body: notes[i].body
             });
         }
 
         res.json(json);
     },
-    one: () => {
+    one: async (req, res) => {
+        let json = {error:'', result:{}};
+
+        let id = req.params.id;
+        let note = await NoteService.findById(id);
+
+        if(note) {
+            json.result = note;
+        }
+
+        res.json(json);
+    },
+    new: async (req, res) => {
 
     },
-    new: () => {
+    edit: async (req, res) => {
 
     },
-    edit: () => {
-
-    },
-    delete: () => {
+    delete: async (req, res) => {
 
     },
 };
